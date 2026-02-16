@@ -1,22 +1,18 @@
-# Agent Skills Kit
+# Agent Skills Architecture Kit
 
-> Drop-in `.claude/`, `.kilocode/`, `.codex/`, and `.agents/` folders with a skill installer, architecture reference, and starter config — ready to use with Claude Code, KiloCode, OpenAI Codex, OpenClaw, and any AgentSkills-compatible agent.
+#Drag and drop agent folders with 'new-skill' and 'mcp-builder' skills preinstalled to architect any new agent skill or mcp install/creation — ready to use with Claude Code, KiloCode, OpenAI Codex, OpenClaw, and any AgentSkills-compatible agent.
+📄 Get the Full Guide
+[Download the Agent Skills Architecture Guide (PDF)] — covers folder structure, SKILL.md anatomy, frontmatter reference, OpenClaw vs Claude Code comparison diagrams, [claude, kilo, codex, legacy agent] agent folder diagrams, self-hosted model config (Ollama / LM Studio ), troubleshooting, and more.
 
-![Agent Skills Architecture Guide — Cover](./cover-preview.png)
-
----
-
-## 📄 Get the Full Guide
-
-**[Download the Agent Skills Architecture Guide (PDF)]** — covers folder structure, SKILL.md anatomy, frontmatter reference, OpenClaw vs Claude Code comparison diagrams, self-hosted model config (Ollama / LM Studio), troubleshooting, and more.
-
-> Follow [@shaneswrld_](https://twitter.com/shaneswrld_) and comment to get the PDF download link.
+> Follow [@shaneswrld_](https://twitter.com/shaneswrld_) and dm "agent skills" to get the PDF download link.
 
 ---
+![xpost1](https://github.com/user-attachments/assets/ba19f9d7-55fd-453f-9079-cba46118ed76)
 
 ## 🚀 Install
 
 ### Option 1: Download and drag (easiest)
+> Drop-in `.claude/`, `.kilocode/`, `.codex/`, and `.agents/` folders with a skill installer, architecture reference, and starter config — ready to use with Claude Code, KiloCode, OpenAI Codex, OpenClaw, and any AgentSkills-compatible agent. 
 
 1. Download this repo as a ZIP (green **Code** button → **Download ZIP**)
 2. Unzip it
