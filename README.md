@@ -1,6 +1,6 @@
 # Agent Skills Architecture Kit
 
-#Drag and drop agent folders with 'new-skill' and 'mcp-builder' skills preinstalled to architect any new agent skill or mcp install/creation — ready to use with Claude Code, KiloCode, OpenAI Codex, OpenClaw, and any AgentSkills-compatible agent.
+It's Feb 16 2026.. here is the modern, up to date agentic folder protocal and build out guide for OpenClaw, Claude Code, KiloCode, OpenAI Codex, and any AgentSkills-compatible agent. The repo features drag and drop agent folders with 'new-skill' and 'mcp-builder' skills preinstalled to architect any new agent skill or mcp install/creation — ready to use with Claude Code, KiloCode, OpenAI Codex, OpenClaw, and any AgentSkills-compatible agent.
 📄 Get the Full Guide
 [Download the Agent Skills Architecture Guide (PDF)] — covers folder structure, SKILL.md anatomy, frontmatter reference, OpenClaw vs Claude Code comparison diagrams, [claude, kilo, codex, legacy agent] agent folder diagrams, self-hosted model config (Ollama / LM Studio ), troubleshooting, and more.
 
