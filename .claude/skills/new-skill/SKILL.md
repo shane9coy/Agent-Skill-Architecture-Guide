@@ -6,6 +6,28 @@ description: "Install, create, scaffold, and validate new skills in the .claude/
 # New Skill Installer & Scaffolder
 
 ## Overview
+This project includes the `new-skill` installer skill. Use it to:
+
+1. **Create a skill from scratch** — "create a new skill for X"
+2. **Install from GitHub / zip / markdown** — "install this skill: <url>"
+3. **Install the MCP Builder skill** — "set up the mcp-builder skill"
+4. **Validate a skill** — "check if my skill is set up correctly"
+5. **Audit entire .claude folder** — "scan and fix my .claude structure"
+
+## Skill Folder Convention
+
+Skills live in `.claude/skills/<skill-name>/SKILL.md`. Each skill folder may also contain:
+
+- `references/` — architecture docs, guides, examples the agent loads on demand
+- `scripts/` — executable code the agent can run
+- `assets/` — templates, resources
+
+## Notes
+
+- SKILL.md frontmatter (`name` + `description`) is required for discovery
+- Description is the trigger — put all "when to use" info there
+- Keep SKILL.md under 500 lines; move depth to `references/`
+- Quote YAML descriptions to avoid silent parse failures
 
 This skill helps you install, create, and manage skills in your `.claude/skills/` directory. It handles the full lifecycle: scaffolding new skills from scratch, installing skills from external sources, validating skill structure, and troubleshooting registration issues.
 

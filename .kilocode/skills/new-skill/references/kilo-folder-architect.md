@@ -1,9 +1,10 @@
-# KiloCode Skills Guide
+---
+name: kilo-folder-architect
+description: "Guide for structuring, organizing, and managing .claude/ skill folders for Claude Code, OpenClaw, and compatible CLI agents. Use when setting up a new project, restructuring an existing .claude folder, installing skills, or troubleshooting skill registration issues."
 
 A complete guide to skill registration, folder structure, and agent orchestration for KiloCode.
 
 Compiled from Agent Skills Architecture Guide v4.1 — February 2026
-
 ---
 
 ## Table of Contents
