@@ -10,7 +10,6 @@ February 2026
 
 ## Table of Contents
 
-0. [Syncing your current file systems](#table-of-contents)
 1. [How Skills Work Under the Hood](#01--how-skills-work-under-the-hood)
 2. [Canonical Folder Structures (Claude / KiloCode / Codex)](#02--canonical-folder-structures)
 3. [SKILL.md Anatomy & Frontmatter Reference](#03--skillmd-anatomy--frontmatter)
@@ -20,36 +19,13 @@ February 2026
 7. [Claude Code vs KiloCode vs OpenClaw vs Codex](#07--claude-code-vs-kilocode-vs-openclaw-vs-codex)
 8. [Agent Orchestration: Folders Map to Runtime](#08--agent-orchestration-folders-to-runtime)
 9. [Self-Hosted Model Configuration](#09--self-hosted-model-configuration)
-10.[Troubleshooting: Skills Not Registering](#10--troubleshooting-skills-not-registering)
-11.[Installing External Skills](#11--installing-external-skills)
-12.[Quick Skill Template](#12--quick-skill-template)
--  [Appendix A: The new-skill Installer Skill](#appendix-a--the-new-skill-installer-skill)
--  [Appendix B: CLAUDE.md Starter Template](#appendix-b--claudemd-starter-template)
+10. [Troubleshooting: Skills Not Registering](#10--troubleshooting-skills-not-registering)
+11. [Installing External Skills](#11--installing-external-skills)
+12. [Quick Skill Template](#12--quick-skill-template)
+- [Appendix A: The new-skill Installer Skill](#appendix-a--the-new-skill-installer-skill)
+- [Appendix B: CLAUDE.md Starter Template](#appendix-b--claudemd-starter-template)
 
 ---
-## 00 - Syncing files systems
-
-The cleanest approach is a symlink — one canonical source, the other points to it.
-Pick .claude as the source of truth (it's the Claude Code standard location), then symlink .kilocode/commands and .kilocode/skills to point at the .claude versions:
-bash# From your project root (/Users/sc/News Letter)
-
-# Remove the duplicate folders in .kilocode
-rm -rf .kilocode/commands
-rm -rf .kilocode/skills
-
-# Symlink them to .claude
-ln -s ../.claude/commands .kilocode/commands
-ln -s ../.claude/skills .kilocode/skills
-
-Now when you edit any command or skill in .claude/, .kilocode sees it instantly — one file, two tools.
-Verify it worked:
-bashls -la .kilocode/commands   # Should show -> ../.claude/commands
-ls -la .kilocode/skills     # Should show -> ../.claude/skills
-One caveat: if .kilocode/settings.json references paths differently than .claude/settings.json, those stay separate (which is correct — each tool has its own settings). You're only syncing the content (commands + skills), not the config.
-That's it. No sync scripts, no cron jobs, no drift.
-
----
-
 
 ## 01 — How Skills Work Under the Hood
 
