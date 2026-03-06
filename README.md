@@ -4,7 +4,7 @@ Up to date (as of 2/27/26) agentic folder protocal and build out guide for OpenC
 📄 Get the Full Guide
 [Download the Agent Skills Architecture Guide (PDF)] — covers folder structure, SKILL.md anatomy, frontmatter reference, OpenClaw vs Claude Code comparison diagrams, [claude, kilo, codex, legacy agent] agent folder diagrams, self-hosted model config (Ollama / LM Studio ), troubleshooting, and more.
 
-> Follow [@shaneswrld_](https://twitter.com/shaneswrld_) and dm "agent skills" to get the PDF download link.
+> Follow [@shaneswrld_] on X
 
 ---
 ![xpost1](https://github.com/user-attachments/assets/ba19f9d7-55fd-453f-9079-cba46118ed76)
