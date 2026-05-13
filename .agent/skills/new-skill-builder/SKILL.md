@@ -1,13 +1,13 @@
 ---
 name: new-skill
-description: "Install, create, scaffold, and validate new skills in the .claude/skills/ folder. Use when adding a skill from a URL, GitHub repo, zip file, or markdown content, or when creating a new skill from scratch. Also use for validating existing skills, fixing registration issues, or restructuring the .claude folder."
+description: "Install, create, scaffold, and validate new skills in Codex-first skill folders such as .codex/skills/ and .agents/skills/. Use when adding a skill from a URL, GitHub repo, zip file, or markdown content, or when creating a new skill from scratch. Also use for validating existing skills, fixing registration issues, or restructuring agent skill folders."
 ---
 
 # New Skill Installer & Scaffolder
 
 ## Overview
 
-This skill helps you install, create, and manage skills in your `.claude/skills/` directory. It handles the full lifecycle: scaffolding new skills from scratch, installing skills from external sources, validating skill structure, and troubleshooting registration issues.
+This skill helps you install, create, and manage skills in your Codex-first `.codex/skills/` or `.agents/skills/` directory. It handles the full lifecycle: scaffolding new skills from scratch, installing skills from external sources, validating skill structure, and troubleshooting registration issues.
 
 ---
 
@@ -26,7 +26,7 @@ When the user wants to create a brand new skill:
 ```bash
 SKILL_NAME="the-skill-name"
 PROJECT_DIR="$(pwd)"
-SKILL_DIR="${PROJECT_DIR}/.claude/skills/${SKILL_NAME}"
+SKILL_DIR="${PROJECT_DIR}/.codex/skills/${SKILL_NAME}"
 
 mkdir -p "${SKILL_DIR}"
 mkdir -p "${SKILL_DIR}/scripts"
@@ -78,7 +78,7 @@ When the user provides a URL, GitHub repo, zip file, or raw markdown:
 ```bash
 REPO_URL="$1"
 SKILL_NAME="$2"  # Extract from repo name if not given
-SKILL_DIR=".claude/skills/${SKILL_NAME}"
+SKILL_DIR=".codex/skills/${SKILL_NAME}"
 
 # Clone just the skill content
 git clone --depth 1 "${REPO_URL}" "/tmp/${SKILL_NAME}-clone"
@@ -95,7 +95,7 @@ fi
 # Get the skill's parent directory (contains SKILL.md + siblings)
 SKILL_SRC=$(dirname "$SKILL_FILE")
 
-# Copy to .claude/skills/
+# Copy to .codex/skills/
 mkdir -p "${SKILL_DIR}"
 cp -r "${SKILL_SRC}/"* "${SKILL_DIR}/"
 
@@ -110,7 +110,7 @@ echo "Installed ${SKILL_NAME} to ${SKILL_DIR}"
 If the user pastes or uploads a SKILL.md file:
 
 1. Extract the `name` field from YAML frontmatter
-2. Create `.claude/skills/{name}/SKILL.md`
+2. Create `.codex/skills/{name}/SKILL.md`
 3. Write the content
 4. Check if it references external files (scripts/, references/, assets/)
 5. Warn the user about any missing referenced files
@@ -139,7 +139,7 @@ if [ -z "$SKILL_NAME" ]; then
   SKILL_NAME=$(basename "$SKILL_SRC")
 fi
 
-SKILL_DIR=".claude/skills/${SKILL_NAME}"
+SKILL_DIR=".codex/skills/${SKILL_NAME}"
 mkdir -p "$SKILL_DIR"
 cp -r "$SKILL_SRC/"* "$SKILL_DIR/"
 
@@ -156,10 +156,10 @@ When the user wants to install the `mcp-builder` skill specifically:
 1. Create the directory structure:
 
 ```bash
-mkdir -p .claude/skills/mcp-builder/reference
+mkdir -p .codex/skills/mcp-builder/reference
 ```
 
-2. Copy or create the SKILL.md from the user's uploaded file into `.claude/skills/mcp-builder/SKILL.md`
+2. Copy or create the SKILL.md from the user's uploaded file into `.codex/skills/mcp-builder/SKILL.md`
 
 3. Note that the SKILL.md references these files that need to be populated:
    - `{baseDir}/reference/mcp_best_practices.md`
@@ -171,11 +171,11 @@ mkdir -p .claude/skills/mcp-builder/reference
 
 ```bash
 for ref in mcp_best_practices python_mcp_server node_mcp_server evaluation; do
-  if [ ! -f ".claude/skills/mcp-builder/reference/${ref}.md" ]; then
-    echo "# ${ref}" > ".claude/skills/mcp-builder/reference/${ref}.md"
-    echo "" >> ".claude/skills/mcp-builder/reference/${ref}.md"
-    echo "TODO: Populate with content from the original skill repository." >> ".claude/skills/mcp-builder/reference/${ref}.md"
-    echo "Source: https://github.com/ComposioHQ/awesome-claude-skills/tree/main/mcp-builder/reference" >> ".claude/skills/mcp-builder/reference/${ref}.md"
+  if [ ! -f ".codex/skills/mcp-builder/reference/${ref}.md" ]; then
+    echo "# ${ref}" > ".codex/skills/mcp-builder/reference/${ref}.md"
+    echo "" >> ".codex/skills/mcp-builder/reference/${ref}.md"
+    echo "TODO: Populate with content from the original skill repository." >> ".codex/skills/mcp-builder/reference/${ref}.md"
+    echo "Source: https://github.com/ComposioHQ/awesome-claude-skills/tree/main/mcp-builder/reference" >> ".codex/skills/mcp-builder/reference/${ref}.md"
   fi
 done
 ```
@@ -191,7 +191,7 @@ Run these checks on any skill to ensure it will register properly:
 ### Validation Checklist
 
 ```bash
-SKILL_DIR="$1"  # e.g., .claude/skills/my-skill
+SKILL_DIR="$1"  # e.g., .codex/skills/my-skill
 
 # 1. Check SKILL.md exists
 if [ ! -f "${SKILL_DIR}/SKILL.md" ]; then
@@ -242,38 +242,38 @@ echo "PASS: Skill structure is valid."
 
 ---
 
-## Workflow 5: Restructure / Audit Entire .claude Folder
+## Workflow 5: Restructure / Audit Agent Skill Folders
 
-When the user wants to audit or fix their entire `.claude/` setup:
+When the user wants to audit or fix their Codex-first skill setup:
 
 1. **Scan current structure:**
 
 ```bash
-echo "=== Current .claude structure ==="
-find .claude -type f | head -50
+echo "=== Current agent skill structure ==="
+find .codex .agents skills -type f 2>/dev/null | head -50
 echo ""
 echo "=== Skills found ==="
-find .claude/skills -name "SKILL.md" 2>/dev/null || echo "No skills directory found"
+find .codex/skills .agents/skills skills -name "SKILL.md" 2>/dev/null || echo "No skills directory found"
 ```
 
 2. **For each SKILL.md found, run validation** (Workflow 4)
 
 3. **Check for common problems:**
    - SKILL.md files not inside a named subfolder
-   - Missing CLAUDE.md at project root
+   - Missing AGENTS.md at project root
    - Skills with duplicate names
    - Orphan folders (no SKILL.md inside)
 
 4. **Report findings** and offer to fix issues.
 
-5. **If no .claude/ folder exists, scaffold one:**
+5. **If no Codex skill folder exists, scaffold one:**
 
 ```bash
-mkdir -p .claude/skills
-mkdir -p .claude/commands
+mkdir -p .codex/skills
+mkdir -p .agent/playbooks
 
-# Create starter CLAUDE.md
-cat > .claude/CLAUDE.md << 'EOF'
+# Create starter AGENTS.md
+cat > AGENTS.md << 'EOF'
 # Project Configuration
 
 ## Stack
@@ -289,10 +289,10 @@ cat > .claude/CLAUDE.md << 'EOF'
 - TODO: Add your naming conventions
 
 ## Notes
-- TODO: Add project-specific context for Claude
+- TODO: Add project-specific context for Codex
 EOF
 
-echo "Created .claude/ folder with starter CLAUDE.md"
+echo "Created .codex/skills and starter AGENTS.md"
 ```
 
 ---
@@ -306,8 +306,9 @@ echo "Created .claude/ folder with starter CLAUDE.md"
 5. **Test the trigger** — after installing, suggest the user try a prompt that should activate the skill
 6. **Preserve existing structure** — when restructuring, don't delete files without confirmation
 7. **Handle both project-local and global installs** — ask the user which scope they want:
-   - Project: `./.claude/skills/`
-   - Global: `~/.claude/skills/`
+   - Project: `./.codex/skills/` or `./.agents/skills/`
+   - Global: `~/.codex/skills/`
+   - Hermes: the configured Hermes skills path, commonly under `~/.hermes/skills/`
 
 ---
 
