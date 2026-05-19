@@ -1,194 +1,155 @@
-# Agent Skills Architecture Kit
+# Agent Skills Architecture Guide
 
-Up to date (as of 5/13/26) agentic folder protocol and buildout guide for OpenAI Codex, Hermes Agent, KiloCode, Claude Code, and any AgentSkills-compatible agent. The repo features drag-and-drop agent folders with `new-skill` and `mcp-builder` skills preinstalled, plus `.agent/` orchestration examples for roles, playbooks, reusable prompts, and handoff workflows.
+Agent-skills guide and starter kit for using `AGENTS.md`, `SKILL.md`, and repo-local agent folders to make AI coding agents behave more predictably inside real codebases.
+
+This repo now focuses on a simplified layout:
+
+- `AGENTS.md`: public template for agent behavior, Git hygiene, contextual editing, implementation review, and handoff discipline.
+- `skills/new-skill-builder/`: reusable skill for creating, installing, validating, and auditing agent skills.
+- `skills/new-mcp-builder/`: reusable skill for planning and building MCP server integrations.
+- `Agent-Skills-Architecture-Guide.md`: Markdown source for the guide.
+- `Agent-Skills-Architecture-Guide-v2.pdf`: PDF version of the guide.
+- `socialmediamockup.txt`: draft social article copy for launch/content work.
+
 📄 Get the Full Guide
-[Download the Agent Skills Architecture Guide (PDF)] — covers Codex-first folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontmatter reference, `.agent/` orchestration folders, Claude command-folder equivalents, self-hosted model config (Ollama / LM Studio), troubleshooting, and more.
 
-> Follow [@shaneswrld_] on X
+[Download the Agent Skills Architecture Guide v2 PDF](Agent-Skills-Architecture-Guide-v2.pdf)
 
----
-![Agent Skills Architecture Guide cover](assets/title-cover.png)
+The guide covers agent folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontmatter reference, orchestration folders, command-folder equivalents, self-hosted model notes, troubleshooting, and reusable skill patterns.
 
-## 🚀 Install
+> Copy the included `AGENTS.md` into your global or repo-local agent instruction folder, then replace the placeholder Git identity fields with your own name, email, and GitHub username.
 
-### Option 1: Download and drag (easiest)
-> Drop-in `.codex/`, `.agents/`, `.agent/`, `.kilocode/`, and `.claude/` folders with skills, architecture reference, and starter config — ready to use with OpenAI Codex, Hermes Agent, KiloCode, Claude Code, and any AgentSkills-compatible agent. 
+## Install
 
-1. Download this repo as a ZIP (green **Code** button → **Download ZIP**)
-2. Unzip it
-3. **Drag and drop the folders into your agent folder:**
-   - **For OpenAI Codex:** Drag `.codex/` or `.agents/` into your project root and keep `AGENTS.md` at the root
-   - **For Hermes Agent:** Use `.agent/` as the project orchestration map and install reusable skills into your Hermes skills path
-   - **For KiloCode:** Drag `.kilocode/` into your project root (or use `.claude/` as fallback)
-   - **For Claude Code:** Drag `.claude/` into your project root
-   - **For AGENT.MD:** Drag `.agent/AGENT.MD` into your project root (or copy to your existing `.agent/AGENT.md`)
-4. Done — your agent now has skills installed and ready to use
+### Option 1: Install `AGENTS.md`
 
-#### How to Drag & Drop MCP Skills
+Open `AGENTS.md` and replace:
 
-To add MCP skills (like the included `mcp-builder` skill) to your agent:
+- `<YOUR_GIT_AUTHOR_NAME>`
+- `<YOUR_GIT_AUTHOR_EMAIL>`
+- `<YOUR_GITHUB_USERNAME>`
 
-1. **Download this repo as a ZIP** (green **Code** button → **Download ZIP**)
-2. **Unzip it** on your computer
-3. **Navigate to the agent folder** you want to add MCP skills to:
-   - For OpenAI Codex: `.codex/skills/` or `.agents/skills/` folder inside your project
-   - For Hermes Agent: your Hermes skills folder, or a project/repo `skills/` folder when configured
-   - For KiloCode: `.kilocode/skills/` folder inside your project
-   - For Claude Code: `.claude/skills/` folder inside your project
-4. **Drag and drop the skill folder** (e.g., `new-mcp-builder/` from `.agent/skills/new-mcp-builder/`) into your agent's `skills/` folder
-5. **Restart your agent** — the MCP skill will now be available
-
-> **Note:** The `new-mcp-builder` skill is located at:
-> - `.agent/skills/new-mcp-builder/` (generic / Hermes orchestration reference)
-> - `.kilocode/skills/new-mcp-builder/` (KiloCode)
-> - `.claude/skills/new-mcp-builder/` (Claude Code)
-
-#### How to Drag & Drop AGENT.MD
-
-To add the AGENT.MD configuration file to your project:
-
-1. **Download this repo as a ZIP** (green **Code** button → **Download ZIP**)
-2. **Unzip it** on your computer
-3. **Navigate to** `.agent/` folder in the unzipped repo
-4. **Drag and drop `AGENT.MD`** into your project's agent folder:
-   - For Hermes Agent or generic orchestration: Drop into your project's `.agent/` folder
-   - For existing `.agent/` folder: Merge with your existing AGENT.md or replace
-5. **Restart your agent** — the agent configuration is now loaded
-
-> **Tip:** If you already have an AGENT.MD file, you can merge the contents or use the included one as a template/reference.
-
-> **Tip:** If you already have an agent folder (`.codex/`, `.agents/`, `.agent/`, `.claude/`, or `.kilocode/`), you can just drag the `skills/` subfolder into your existing agent folder to add the skills without overwriting your config. Use `.agent/playbooks/` for command-style workflows and `skills/` for reusable capabilities.
-
-### Option 2: Clone
+Install globally for Codex:
 
 ```bash
-git clone https://github.com/shane9coy/agent-skills-kit.git
-
-# OpenAI Codex:
-cp -r agent-skills-kit/.codex/ your-project/.codex/
-cp agent-skills-kit/AGENTS.md your-project/AGENTS.md
-
-# Legacy Codex / .agents convention:
-cp -r agent-skills-kit/.agents/ your-project/.agents/
-
-# Hermes Agent / generic .agent orchestration:
-cp -r agent-skills-kit/.agent/ your-project/.agent/
-
-# KiloCode:
-cp -r agent-skills-kit/.kilocode/ your-project/.kilocode/
-
-# Claude Code:
-cp -r agent-skills-kit/.claude/ your-project/.claude/
+mkdir -p ~/.codex
+cp AGENTS.md ~/.codex/AGENTS.md
 ```
 
----
+Install repo-locally:
 
-## 📁 What's Inside
-
+```bash
+cp AGENTS.md your-project/AGENTS.md
 ```
-agent-skills-kit/
-├── .agent/                                # Hermes / general orchestration
-│   ├── AGENT.md                          # Agent configuration and memory
-│   └── skills/
-│       ├── new-skill-builder/
-│       │   ├── SKILL.md                   # Skill installer / scaffolder
-│       │   └── references/
-│       │       ├── Agent-Skills-Architecture-Guide.md
-│       │       └── claude-skills-guide.md
-│       └── new-mcp-builder/
-│           └── SKILL.md                   # MCP builder skill
-│
-├── .codex/                                # OpenAI Codex
-│   ├── AGENTS.md                          # Codex project memory
-│   └── skills/
-│       └── new-skill/
-│           ├── SKILL.md
-│           └── references/
-│               └── claude-skills-guide.md # Architecture reference for the agent
-│
-├── .kilocode/                             # KiloCode
-│   ├── AGENTS.md                          # KiloCode project memory (AGENTS.md standard)
-│   └── skills/
-│       └── new-skill/
-│           ├── SKILL.md
-│           └── references/
-│               └── claude-skills-guide.md
-│
-├── .claude/                              # Claude Code
-│   ├── CLAUDE.md                          # Starter project config
-│   └── skills/
-│       └── new-skill/
-│           ├── SKILL.md                   # Skill installer / scaffolder / validator
-│           └── references/
-│               └── claude-skills-guide.md
-│
-├── .agents/                               # Legacy / generic AgentSkills
-│   └── skills/
-│       └── new-skill/
-│           ├── SKILL.md
-│           └── references/
-│               └── claude-skills-guide.md
-│
-├── AGENTS.md                              # Codex project memory (root-level fallback)
+
+Global rules define how your agent should behave everywhere. Repo-local rules define how the agent should behave inside one specific codebase.
+
+### Option 2: Install Skills
+
+Copy the included skills into your agent skill folder:
+
+```bash
+mkdir -p ~/.codex/skills
+cp -R skills/new-skill-builder ~/.codex/skills/
+cp -R skills/new-mcp-builder ~/.codex/skills/
+```
+
+For repo-local usage, copy the skill folders into your project:
+
+```bash
+mkdir -p your-project/skills
+cp -R skills/new-skill-builder your-project/skills/
+cp -R skills/new-mcp-builder your-project/skills/
+```
+
+Use your agent's equivalent skill directory if you are using Claude Code, KiloCode, Hermes Agent, OpenCode, Cursor, Windsurf, Cline, or another AgentSkills-compatible agent.
+
+### Option 3: Clone
+
+```bash
+git clone https://github.com/<your-github-username>/Agent-Skill-Architecture-Guide.git
+cd Agent-Skill-Architecture-Guide
+```
+
+Then install `AGENTS.md` and the skills using the commands above.
+
+## Recommended Workflow
+
+1. Install `AGENTS.md` globally so every agent session starts with the same operating rules.
+2. Copy `AGENTS.md` into each important repo so local sessions have a reliable fallback.
+3. Add repo-specific guidance underneath the global rules: stack, commands, branch rules, build/test flow, project boundaries, and known risks.
+4. Install `new-skill-builder` when you want your agent to create or validate skills.
+5. Install `new-mcp-builder` when you want your agent to plan or build MCP integrations.
+
+For repeatable setup, create a small agent skill that copies your global `AGENTS.md` into the current repo, preserves the global rules exactly, and appends repo-specific guidance. This keeps new repos consistent without manually rewriting the file every time.
+
+## What's Inside
+
+```text
+Agent-Skill-Architecture-Guide/
+├── AGENTS.md
+├── Agent-Skills-Architecture-Guide.md
+├── Agent-Skills-Architecture-Guide-v2.pdf
 ├── README.md
-└── LICENSE
+├── LICENSE
+├── socialmediamockup.txt
+└── skills/
+    ├── new-mcp-builder/
+    │   ├── SKILL.md
+    │   └── references/
+    └── new-skill-builder/
+        ├── SKILL.md
+        └── references/
 ```
 
-All four folders contain compatible skills — use whichever matches your tool. For Codex-first projects, keep `AGENTS.md` at the repo root, use `.codex/skills/` or `.agents/skills/` for skills, and use `.agent/` as the human-readable orchestration map for roles, playbooks, prompts, and handoffs. KiloCode also reads `.claude/skills/` as fallback, so Claude + KiloCode users can share `.claude/`.
+## What The Skills Do
 
----
+### `new-skill-builder`
 
-## 🛠 What `new-skill` Does
+Use this skill when you want an agent to:
 
-Once installed, your agent gets 5 workflows:
+- Create a new skill from scratch.
+- Install a skill from GitHub, ZIP, or Markdown.
+- Validate a skill's structure and frontmatter.
+- Audit an agent skill folder.
+- Move long reference material out of `SKILL.md` and into `references/`.
 
-| # | Workflow | How to trigger |
-|---|---------|---------------|
-| 1 | **Create a skill from scratch** | "create a new skill for X" |
-| 2 | **Install from GitHub / zip / markdown** | "install this skill: \<url\>" |
-| 3 | **Install the MCP Builder skill** | "set up the mcp-builder skill" |
-| 4 | **Validate a skill** | "check if my skill is set up correctly" |
-| 5 | **Audit entire agent folder** | "scan and fix my .codex/.agents/.agent structure" |
+### `new-mcp-builder`
 
----
+Use this skill when you want an agent to:
 
-## 🔀 Compatibility
+- Plan a new MCP server.
+- Define tool surfaces and schemas.
+- Document setup, auth, environment variables, and safety boundaries.
+- Create implementation notes for MCP integrations.
+- Review an MCP server for usability and agent compatibility.
 
-The [AgentSkills spec](https://github.com/anthropics/skills) is a shared standard. This kit works with:
+## Compatibility
 
-| Tool | Agent folder | Skill folder | Memory file |
-|------|-------------|-------------|-------------|
-| **OpenAI Codex** | `.codex/` | `.codex/skills/` (also reads `.agents/skills/`) | `AGENTS.md` |
-| **Hermes Agent** | `.agent/` as orchestration map | Hermes skills path / project `skills/` when configured | `AGENTS.md` / context files |
-| **KiloCode** | `.kilocode/` | `.kilocode/skills/` (also reads `.claude/skills/`) | `AGENTS.md` (reads `CLAUDE.md` as fallback) |
-| **Claude Code** | `.claude/` | `.claude/skills/` | `CLAUDE.md` |
-| **OpenCode** | `.opencode/` | `.opencode/skills/` (also reads `.claude/skills/`) | — |
-| **Cursor / Windsurf / Cline** | `.claude/` | `.claude/skills/` via openskills | — |
-| **Any AgentSkills agent** | `.agents/` | `.agents/skills/` | — |
+This repo uses the shared AgentSkills pattern:
 
-KiloCode also supports **mode-specific skills** — drop skills into `skills-code/`, `skills-architect/`, `skills-debug/`, etc. to scope them to specific agent modes.
+| Tool | Suggested instruction file | Suggested skill folder |
+|------|----------------------------|------------------------|
+| OpenAI Codex | `AGENTS.md` | `.codex/skills/`, `.agents/skills/`, or repo `skills/` |
+| Hermes Agent | `AGENTS.md` or context files | Hermes skills path or repo `skills/` |
+| KiloCode | `AGENTS.md` | `.kilocode/skills/` |
+| Claude Code | `CLAUDE.md` / project instructions | `.claude/skills/` |
+| OpenCode | tool-specific context | `.opencode/skills/` |
+| Cursor / Windsurf / Cline | tool-specific context | compatible imported skills folder |
+| Any AgentSkills agent | tool-specific context | repo `skills/` |
 
----
+## Key Concepts
 
-## 📖 Key Concepts (from the PDF guide)
+- **`AGENTS.md`**: Durable agent instructions for behavior, Git hygiene, contextual editing, stack conventions, verification, and handoff expectations.
+- **`SKILL.md`**: Skill entrypoint with YAML frontmatter for discovery and Markdown body for instructions.
+- **`references/`**: Supporting material loaded only when needed.
+- **Progressive disclosure**: Keep the core skill short and move deeper examples or guides into references.
+- **Description is the trigger**: The model matches the request against skill descriptions, so put "when to use" guidance in the description.
 
-- **AGENTS.md** — durable Codex repo instructions: stack, conventions, architecture boundaries, testing bar, and handoff expectations.
-- **SKILL.md** — the only required file. YAML frontmatter (`name` + `description`) for discovery, markdown body for instructions.
-- **.agent/** — project orchestration folder for roles, playbooks, prompts, and review gates. This is the Codex-friendly equivalent of a command/runbook layer.
-- **Description is the trigger** — the model matches your request against descriptions, not the body. Put all "when to use" info in the description.
-- **Progressive disclosure** — frontmatter is always loaded (~24 tokens/skill), body loads on trigger, references/ load on demand, scripts/ execute on demand.
-- **Quote your descriptions** — unquoted YAML with special characters silently breaks registration.
-- **Keep SKILL.md under 500 lines** — move depth to `references/`.
+## Credits
 
----
+Compiled by [@shaneswrld_][github.com/shane9coy]
 
-## 🤝 Credits
+## License
 
-Compiled by **s.coy**
-[@shaneswrld_](https://twitter.com/shaneswrld_) | [github.com/shane9coy](https://github.com/shane9coy)
-
----
-
-## 📜 License
-
-MIT — use it, fork it, ship it.
+MIT — use it, fork it, ship it. All I ask for is credit where credit is due.

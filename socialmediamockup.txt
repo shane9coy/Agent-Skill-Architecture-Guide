@@ -1,0 +1,45 @@
+I spent the last two years using AI coding agents almost every day.
+
+The biggest lesson:
+Prompt engineering and individual agent sessions are null.
+The new engineering frontier is agent skills, orchestration, infra, agent harness optimization, and knowing how to conduct long running single prompt buildouts.
+
+So I compressed everything I learned into one `AGENTS.md` file that will turn your agent from a Toyota into a Lamborghini.
+
+That AGENTS.md is basically doing three jobs at once:
+Repo hygiene: branch discipline, clean GitHub workflow, no generated branch mess.
+Agent behavior control: no context mangling, no yes-man loops, no reflex apology theater.
+Engineering quality: situational awareness, scoped implementation, codebase clarity, verification, handoff.
+
+In heinsight, the file is designed to fix:
+- Git branch chaos and pollution: Stopping agents from treating Git branches like disposable sandboxes
+- Sub-agent state, workflow, and branch management
+- Missed details or incomplete implementations from directions: no more weak self-review
+- Context mangling and agent drift
+- Overbuilding and bloating
+- Undocumented and confusing codebases
+- The “yes man” personality: Putting an end to bs responses like everyone's favorite “you’re absolutely right"!
+
+Quick install:
+
+Copy the AGENTS.md context at the bottom of this article, into your root agent instruction folders, like:
+
+- `~/.codex/AGENTS.md`
+- `~/.claude/AGENTS.md` or your Claude-equivalent project instruction file
+
+One thing to note: I’ve found that agent apps (*caugh Codex) do not always reliably pick up the global/root instruction file across every session. A repo-local version is the safer fallback. However, I don't want to copy and format a new 'AGENT.md' for every new poject repo, so lets optimize a skill inside our agent to do that for us:
+
+Input this prompt into your agent:
+
+Put an `AGENTS.md` directly inside the repo so Codex, Claude-style agents, and other coding agents have clear local instructions every time they start work.
+The Repo-local rules define how the agent should behave inside that specific codebase.
+Then create a reusable skill called `agent-copy`.The job of `agent-copy` is simple:
+- Copy your root `AGENTS.md` into the current repo
+- Preserve the global rules exactly
+- Add repo-specific guidance underneath it
+- Document the repo’s stack, commands, branch rules, build/test flow, and project-specific operating notes
+- Keep the repo-local `AGENTS.md` aligned with the global one without rewriting or mangling it
+
+Global rules define how the agent should behave everywhere.
+Repo-local rules define how the agent should behave inside that specific codebase.
+Hey mate, here's my, um, my updated article intro, and I was thinking about maybe, maybe we just make this a GitHub repo that um has these two skills, like the new repo skill and the agent copy skill in our agents.md folder. Maybe we have all that into one repo that people can utilize and use. Like, what do you think about that? Or do you think that the biggest highest engagement is just to post my agent.md, and if they want the other two uh skill features, the agent copy and the new repo skill, just to go to my GitHub page? Kind of thinking about how we can optimize this for engagement and ease of ability for people to access. Thinking it might be better than just posting the X article and saying, copy this into an MD and copy this into a skill. You know what I'm saying? Uh, the, the GitHub repo might just be better.
