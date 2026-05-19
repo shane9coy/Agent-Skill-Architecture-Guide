@@ -2,7 +2,7 @@
 
 Up to date (as of 5/13/26) agentic folder protocol and buildout guide for OpenAI Codex, Hermes Agent, KiloCode, Claude Code, and any AgentSkills-compatible agent. The repo features drag-and-drop agent folders with `new-skill` and `mcp-builder` skills preinstalled, plus `.agent/` orchestration examples for roles, playbooks, reusable prompts, and handoff workflows.
 📄 Get the Full Guide
-[Download the Agent Skills Architecture Guide (PDF)] — covers Codex-first folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontmatter reference, `.agent/` orchestration folders, Claude command-folder equivalents, self-hosted model config (Ollama / LM Studio), troubleshooting, and more.
+[Download the Agent Skills Architecture Guide (PDF)](Agent-Skills-Architecture-Guide-v1.pdf) - covers Codex-first folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontmatter reference, `.agent/` orchestration folders, Claude command-folder equivalents, self-hosted model config (Ollama / LM Studio), troubleshooting, and more.
 
 > Follow [@shaneswrld_] on X
 
@@ -62,7 +62,7 @@ To add the AGENT.MD configuration file to your project:
 ### Option 2: Clone
 
 ```bash
-git clone https://github.com/shane9coy/agent-skills-kit.git
+git clone https://github.com/shane9coy/Agent-Skill-Architecture-Guide.git agent-skills-kit
 
 # OpenAI Codex:
 cp -r agent-skills-kit/.codex/ your-project/.codex/
@@ -149,6 +149,18 @@ Once installed, your agent gets 5 workflows:
 | 3 | **Install the MCP Builder skill** | "set up the mcp-builder skill" |
 | 4 | **Validate a skill** | "check if my skill is set up correctly" |
 | 5 | **Audit entire agent folder** | "scan and fix my .codex/.agents/.agent structure" |
+
+---
+
+## Real External Skill Example
+
+Use a published skill or plugin when validating install docs, tool permissions, and private config handling. For example, [TweetClaw](https://github.com/Xquik-dev/tweetclaw) is an OpenClaw plugin for X/Twitter automation workflows such as scrape tweets, search tweet replies, post tweets and replies, export followers, user lookup, media upload, media download, direct messages, monitors, webhooks, and giveaway draws.
+
+```bash
+openclaw plugins install @xquik/tweetclaw
+```
+
+Keep API keys and private config values in the plugin's config path, not in `AGENTS.md`, `SKILL.md`, playbooks, or prompts.
 
 ---
 
