@@ -19,6 +19,8 @@ The guide covers agent folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontm
 
 > Copy the included `AGENTS.md` into your global or repo-local agent instruction folder, then replace the placeholder Git identity fields with your own name, email, and GitHub username.
 
+![Agent Skills Architecture Guide cover](assets/title-cover.png)
+
 ## Install
 
 ### Option 1: Install `AGENTS.md`

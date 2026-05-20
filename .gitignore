@@ -1,5 +1,7 @@
 __pycache__/
 *.py[cod]
-assets/
+assets/*
+!assets/
+!assets/title-cover.png
 assts/
 scripts/
