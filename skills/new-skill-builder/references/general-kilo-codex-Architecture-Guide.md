@@ -2,8 +2,8 @@
 
 Codex-first folder structure, skill registration, `.agent/` orchestration, Claude command-folder equivalents, and self-hosted model notes
 
-Curated by Shane Coy  
-@shaneswrld_ | github.com/shane9coy  
+Curated by <YOUR_NAME>
+<YOUR_SOCIAL_HANDLE> | github.com/<YOUR_GITHUB_USERNAME>
 Updated May 2026
 
 ---
@@ -642,7 +642,7 @@ Its responsibilities:
 6. Run review gates before declaring the work complete.
 7. Return a handoff with files changed, commands run, open risks, and next steps.
 
-The controller should preserve Shane's role as product owner and technical operator. It can recommend a route, but it should not invent product decisions, credentials, production data, or external state.
+The controller should preserve User's role as product owner and technical operator. It can recommend a route, but it should not invent product decisions, credentials, production data, or external state.
 
 ### Example Codex Orchestrator Skill
 
@@ -1025,7 +1025,7 @@ cp new-skill-SKILL.md .agents/skills/new-skill/SKILL.md
 ```markdown
 # Project Configuration
 
-Shane is the product owner, technical operator, and admin.
+User is the product owner, technical operator, and admin.
 
 Act as a senior software engineer. Start stack-first and architecture-first before substantial implementation.
 
@@ -1062,8 +1062,8 @@ Act as a senior software engineer. Start stack-first and architecture-first befo
 
 ---
 
-*Agent Skills Architecture Guide*  
-Curated by Shane Coy  
-@shaneswrld_ | github.com/shane9coy  
-OpenAI Codex / Hermes Agent / KiloCode / Claude Code / Ollama / vLLM  
+*Agent Skills Architecture Guide*
+Curated by <YOUR_NAME>
+<YOUR_SOCIAL_HANDLE> | github.com/<YOUR_GITHUB_USERNAME>
+OpenAI Codex / Hermes Agent / KiloCode / Claude Code / Ollama / vLLM
 v4.2 — May 2026
