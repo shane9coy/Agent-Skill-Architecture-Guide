@@ -5,6 +5,7 @@ Agent-skills guide and starter kit for using `AGENTS.md`, `SKILL.md`, and repo-l
 This repo now focuses on a simplified layout:
 
 - `AGENTS.md`: public template for agent behavior, Git hygiene, contextual editing, implementation review, and handoff discipline.
+- `skills/agent-copy/`: reusable skill for copying your canonical global instructions into any project repo and appending repo-specific guidance.
 - `skills/new-skill-builder/`: reusable skill for creating, installing, validating, and auditing agent skills.
 - `skills/new-mcp-builder/`: reusable skill for planning and building MCP server integrations.
 - `Agent-Skills-Architecture-Guide.md`: Markdown source for the guide.
@@ -17,7 +18,7 @@ This repo now focuses on a simplified layout:
 
 The guide covers agent folder structure, `AGENTS.md`, `SKILL.md` anatomy, frontmatter reference, orchestration folders, command-folder equivalents, self-hosted model notes, troubleshooting, and reusable skill patterns.
 
-> Copy the included `AGENTS.md` into your global or repo-local agent instruction folder, then replace the placeholder Git identity fields with your own name, email, and GitHub username.
+> Copy the included `AGENTS.md` into your canonical global agent instruction folder, then replace the placeholder Git identity fields with your own name, email, and GitHub username.
 
 ![Agent Skills Architecture Guide cover](assets/title-cover.png)
 
@@ -46,6 +47,18 @@ cp AGENTS.md your-project/AGENTS.md
 
 Global rules define how your agent should behave everywhere. Repo-local rules define how the agent should behave inside one specific codebase.
 
+Codex is the default example in this repo, so the default canonical source is:
+
+```bash
+~/.codex/AGENTS.md
+```
+
+If your canonical agent instructions live somewhere else, keep the same workflow and change the source path. The model is:
+
+```text
+canonical global instructions -> repo-local AGENTS.md -> repo-specific tail
+```
+
 ### Option 2: Install Skills
 
 Copy the included skills into your agent skill folder:
@@ -54,6 +67,7 @@ Copy the included skills into your agent skill folder:
 mkdir -p ~/.codex/skills
 cp -R skills/new-skill-builder ~/.codex/skills/
 cp -R skills/new-mcp-builder ~/.codex/skills/
+cp -R skills/agent-copy ~/.codex/skills/
 ```
 
 For repo-local usage, copy the skill folders into your project:
@@ -62,6 +76,7 @@ For repo-local usage, copy the skill folders into your project:
 mkdir -p your-project/skills
 cp -R skills/new-skill-builder your-project/skills/
 cp -R skills/new-mcp-builder your-project/skills/
+cp -R skills/agent-copy your-project/skills/
 ```
 
 Use your agent's equivalent skill directory if you are using Claude Code, KiloCode, Hermes Agent, OpenCode, Cursor, Windsurf, Cline, or another AgentSkills-compatible agent.
@@ -69,7 +84,7 @@ Use your agent's equivalent skill directory if you are using Claude Code, KiloCo
 ### Option 3: Clone
 
 ```bash
-git clone https://github.com/<your-github-username>/Agent-Skill-Architecture-Guide.git
+git clone https://github.com/shane9coy/Agent-Skill-Architecture-Guide.git
 cd Agent-Skill-Architecture-Guide
 ```
 
@@ -78,12 +93,23 @@ Then install `AGENTS.md` and the skills using the commands above.
 ## Recommended Workflow
 
 1. Install `AGENTS.md` globally so every agent session starts with the same operating rules.
-2. Copy `AGENTS.md` into each important repo so local sessions have a reliable fallback.
-3. Add repo-specific guidance underneath the global rules: stack, commands, branch rules, build/test flow, project boundaries, and known risks.
-4. Install `new-skill-builder` when you want your agent to create or validate skills.
-5. Install `new-mcp-builder` when you want your agent to plan or build MCP integrations.
+2. Install `agent-copy` so your agent can create repo-local `AGENTS.md` files without manual copy/paste.
+3. Run `agent-copy` inside each important repo so local sessions have a reliable fallback.
+4. Add repo-specific guidance underneath the global rules: stack, commands, branch rules, build/test flow, project boundaries, and known risks.
+5. Install `new-skill-builder` when you want your agent to create or validate skills.
+6. Install `new-mcp-builder` when you want your agent to plan or build MCP integrations.
 
-For repeatable setup, create a small agent skill that copies your global `AGENTS.md` into the current repo, preserves the global rules exactly, and appends repo-specific guidance. This keeps new repos consistent without manually rewriting the file every time.
+After installing `agent-copy`, open a target project and ask your agent:
+
+```text
+Use agent-copy to create or refresh this repo's AGENTS.md from my canonical global instructions, then add repo-specific guidance based on the files in this project.
+```
+
+If your canonical source is not `~/.codex/AGENTS.md`, provide the exact source path:
+
+```text
+Use agent-copy with SOURCE_AGENTS=/path/to/my/global/instructions.md to create or refresh this repo's AGENTS.md, then add repo-specific guidance based on the files in this project.
+```
 
 ## What's Inside
 
@@ -96,6 +122,8 @@ Agent-Skill-Architecture-Guide/
 ├── LICENSE
 ├── socialmediamockup.txt
 └── skills/
+    ├── agent-copy/
+    │   └── SKILL.md
     ├── new-mcp-builder/
     │   ├── SKILL.md
     │   └── references/
@@ -105,6 +133,16 @@ Agent-Skill-Architecture-Guide/
 ```
 
 ## What The Skills Do
+
+### `agent-copy`
+
+Use this skill when you want an agent to:
+
+- Copy your canonical global instructions into the current repo's `AGENTS.md`.
+- Preserve the canonical rules exactly.
+- Add repo-specific guidance based on the current codebase.
+- Keep future repo-local `AGENTS.md` files aligned with your global operating rules.
+- Use Codex's `~/.codex/AGENTS.md` by default, while allowing another canonical source path when needed.
 
 ### `new-skill-builder`
 
@@ -150,7 +188,7 @@ This repo uses the shared AgentSkills pattern:
 
 ## Credits
 
-Compiled by [@shaneswrld_][github.com/shane9coy]
+Compiled by [@shaneswrld_](https://github.com/shane9coy)
 
 ## License
 
