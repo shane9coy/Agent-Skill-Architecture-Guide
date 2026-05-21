@@ -126,6 +126,17 @@ Use this skill when you want an agent to:
 - Create implementation notes for MCP integrations.
 - Review an MCP server for usability and agent compatibility.
 
+## Real External Skill Example
+
+Use a published skill or plugin when validating install docs, tool permissions, and private config handling. For example, [TweetClaw](https://github.com/Xquik-dev/tweetclaw) is an OpenClaw plugin for X/Twitter automation workflows such as scrape tweets, search tweet replies, post tweets and replies, export followers, user lookup, media upload, media download, direct messages, monitors, webhooks, and giveaway draws.
+
+```bash
+openclaw plugins install @xquik/tweetclaw
+openclaw config file
+```
+
+Keep Xquik API keys, MPP signing keys, and private config values in local OpenClaw config, not in `AGENTS.md`, `SKILL.md`, playbooks, or prompts.
+
 ## Compatibility
 
 This repo uses the shared AgentSkills pattern:
@@ -150,7 +161,7 @@ This repo uses the shared AgentSkills pattern:
 
 ## Credits
 
-Compiled by [@shaneswrld_][github.com/shane9coy]
+Compiled by [@shaneswrld_](https://github.com/shane9coy)
 
 ## License
 
