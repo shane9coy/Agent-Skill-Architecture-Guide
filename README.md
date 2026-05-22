@@ -10,7 +10,6 @@ This repo now focuses on a simplified layout:
 - `skills/new-mcp-builder/`: reusable skill for planning and building MCP server integrations.
 - `Agent-Skills-Architecture-Guide.md`: Markdown source for the guide.
 - `Agent-Skills-Architecture-Guide-v2.pdf`: PDF version of the guide.
-- `socialmediamockup.txt`: draft social article copy for launch/content work.
 
 📄 Get the Full Guide
 
@@ -120,7 +119,6 @@ Agent-Skill-Architecture-Guide/
 ├── Agent-Skills-Architecture-Guide-v2.pdf
 ├── README.md
 ├── LICENSE
-├── socialmediamockup.txt
 └── skills/
     ├── agent-copy/
     │   └── SKILL.md
